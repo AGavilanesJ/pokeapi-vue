@@ -1,19 +1,23 @@
 <template>
-  <div class="pokemon-container">
+  <div class="pokemon-container" @click="handleClickOutside">
     <div class="pokemon-list">
       <div
         v-for="pokemon in pokemonList"
         :key="pokemon.name"
         class="pokemon-card"
-        @mouseenter="fetchPokemonDetails(pokemon.url)"
-        @mouseleave="hideDetails"
+        @click.stop="fetchPokemonDetails(pokemon.url)"
       >
         <h2>{{ capitalizeName(pokemon.name) }}</h2>
         <img v-if="pokemon.sprite" :src="pokemon.sprite" :alt="pokemon.name" />
       </div>
     </div>
 
-    <div v-if="pokemonDetails" class="evolution-sidebar" :class="{ 'active': showEvolutions }">
+    <div 
+      v-if="pokemonDetails" 
+      class="evolution-sidebar" 
+      :class="{ 'active': showEvolutions }"
+      ref="evolutionSidebar"
+    >
       <h3>{{ capitalizedPokemonName }}</h3>
       <img :src="pokemonDetails.sprites.front_default" alt="Pokemon image" />
       <p>Altura: {{ pokemonDetails.height }}</p>
@@ -112,12 +116,6 @@ export default {
       }
     },
 
-    hideDetails() {
-      this.showEvolutions = false;
-      this.pokemonDetails = null;
-      this.evolutions = [];
-    },
-
     async fetchEvolutionChain() {
       if (this.pokemonDetails) {
         try {
@@ -159,10 +157,22 @@ export default {
 
     capitalizeName(name) {
       return name.charAt(0).toUpperCase() + name.slice(1);
+    },
+
+    handleClickOutside(event) {
+      const sidebar = this.$refs.evolutionSidebar;
+      if (sidebar && !sidebar.contains(event.target)) {
+        this.showEvolutions = false;
+        this.pokemonDetails = null;
+      }
     }
   },
   mounted() {
     this.fetchPokemonList();
+    document.addEventListener('click', this.handleClickOutside);
+  },
+  beforeDestroy() {
+    document.removeEventListener('click', this.handleClickOutside);
   }
 };
 </script>
@@ -233,7 +243,7 @@ export default {
 }
 
 .evolution-card img {
-  max-width: 100px;
+  max-width: 50px;
 }
 
 .pagination {
