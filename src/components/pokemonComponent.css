@@ -2,33 +2,49 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
+    background-color: #f0f0f0; /* Fondo suave */
   }
   
   .pokemon-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 20px; /* Espacio entre tarjetas */
   }
   
   .pokemon-card {
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 150px;
+    background-color: #ffffff; /* Color blanco para tarjetas */
+    border-radius: 15px; /* Bordes más redondeados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra más suave */
+    width: 180px; /* Ampliar el ancho de las tarjetas */
     text-align: center;
     margin: 10px;
-    padding: 10px;
-    transition: transform 0.3s;
-    cursor: pointer;
+    padding: 15px; /* Aumentar el padding */
+    transition: transform 0.2s, box-shadow 0.2s; /* Transiciones suaves */
   }
   
   .pokemon-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Aumentar el efecto de hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada en hover */
   }
   
-  .pokemon-card img {
-    max-width: 100px;
+  .pokemon-image {
+    max-width: 100px; /* Mantener la imagen contenida */
+    border-radius: 10px; /* Bordes redondeados para la imagen */
+  }
+  
+  .pokemon-details {
+    font-size: 0.9rem; /* Ajustar tamaño de fuente */
+    margin-top: 10px; /* Espacio superior */
+  }
+  
+  .pokemon-type {
+    display: inline-block; /* Mostrar tipos en línea */
+    margin: 0 5px; /* Espacio entre tipos */
+    padding: 5px 10px; /* Padding para el tipo */
+    border-radius: 12px; /* Bordes redondeados */
+    background-color: #e0e0e0; /* Color de fondo suave */
   }
   
   .error {
@@ -36,41 +52,11 @@
     font-weight: bold;
   }
   
-  .evolution-sidebar {
-    position: fixed;
-    top: 0;
-    right: -300px; /* Fuera de la pantalla por defecto */
-    width: 300px;
-    height: 100%;
-    background-color: #f0f0f0;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    transition: right 0.3s ease; /* Transición suave */
-    overflow-y: auto;
-}
-
-.evolution-sidebar.active {
-    right: 0; /* Mostrar la barra lateral */
-}
-  
-  .evolution-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    margin: 10px 0;
-    text-align: center;
-  }
-  
-  .evolution-card img {
-    max-width: 50px;
-  }
-  
   .pagination {
     margin-top: 20px;
   }
   
-  .pagination button {
+  .pagination-button {
     margin: 0 10px;
     padding: 10px 20px;
     border: none;
@@ -78,9 +64,14 @@
     background-color: #007bff;
     color: white;
     cursor: pointer;
+    transition: background-color 0.3s;
   }
   
-  .pagination button:disabled {
+  .pagination-button:hover {
+    background-color: #0056b3; /* Color más oscuro al pasar el ratón */
+  }
+  
+  .pagination-button:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
   }
